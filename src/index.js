@@ -43,6 +43,24 @@ function isAllTrue(array, fn) {
  Зарпещено использовать встроенные методы для работы с массивами
  */
 function isSomeTrue(array, fn) {
+    var x = 0;
+    if ((array == 0 ) || (array.length <= 0)) {
+        throw new Error("empty array");
+    } else if (typeof fn != 'function') {
+        throw new Error("fn is not a function");
+    }else {
+        for  (let i = 0; i <array.length; i++) {
+            let z = fn(array[i]);
+            if (z === true) {
+               x++
+            } 
+        }
+        if( x<1 ) {
+            return false;
+        }else (x >= 1) {
+            return true;
+        }
+    }
 }
 
 /*
@@ -54,6 +72,19 @@ function isSomeTrue(array, fn) {
  - fn не является функцией (с текстом "fn is not a function")
  */
 function returnBadArguments(fn) {
+    let x = new Array();
+    let z = '';
+    if (typeof fn != 'function') {
+        throw new Error('fn is not a function');
+    }
+    for (let i = 0; i<arguments.length; i++) {
+        try {
+            z = fn(arguments[i]);
+        } catch (e) {
+            x.push(arguments[i]);
+        }
+    }
+    return x;
 }
 
 /*
