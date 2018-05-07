@@ -2,14 +2,14 @@ let webpack = require('webpack');
 let HtmlPlugin = require('html-webpack-plugin');
 let CleanWebpackPlugin = require('clean-webpack-plugin');
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
-let loaders = require('./webpack.config.loaders')();
+let rules = require('./webpack.config.rules')();
 let path = require('path');
 
-loaders.push({
+rules.push({
     test: /\.css$/,
-    loader: ExtractTextPlugin.extract({
-        fallbackLoader: 'style-loader',
-        loader: 'css-loader'
+    use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: 'css-loader'
     })
 });
 
@@ -20,14 +20,13 @@ module.exports = {
         path: path.resolve('dist')
     },
     devtool: 'source-map',
-    module: {
-        loaders
-    },
+    module: { rules },
     plugins: [
         new webpack.optimize.UglifyJsPlugin({
             sourceMap: true,
             compress: {
-                drop_debugger: false
+                drop_debugger: false,
+                warnings: false
             }
         }),
         new ExtractTextPlugin('styles.css'),
