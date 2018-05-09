@@ -74,15 +74,15 @@ function isSomeTrue(array, fn) {
    - fn не является функцией (с текстом "fn is not a function")
  */
 function returnBadArguments(fn, ...args) {
-    if(typeof fn !== 'function') {
+    if (typeof fn !== 'function') {
         throw new Error('fn is not a function');
     }
-    if(args.length === 0) {
+    if (args.length === 0) {
         return args;
     }
     let badArgs = [];
     for (let i of args) {
-        try{
+        try {
             fn(i);
         } catch (e) {
             badArgs.push(i);
@@ -109,7 +109,57 @@ function returnBadArguments(fn, ...args) {
    - number не является числом (с текстом "number is not a number")
    - какой-либо из аргументов div является нулем (с текстом "division by 0")
  */
-function calculator() {
+function calculator(number = 0) {
+    if (typeof number !== 'number' || isNaN(number) || !isFinite(number)) {
+        throw new Error('number is not a number');
+    }
+
+    let sum = (...args) => {
+
+        let result = args.reduce((prev, cur, ind) => {
+            return prev + cur
+        }, number);
+
+        return result;
+    }
+
+    let dif = (...args) => {
+
+        let result = args.reduce((prev, cur, ind) => {
+            return prev - cur
+        }, number);
+
+        return result;
+    }
+
+    let div = (...args) => {
+
+        if (args.indexOf(0) !== -1) {
+            throw new Error('division by 0');
+        }
+
+        let result = args.reduce((prev, cur, ind) => {
+            return prev / cur
+        }, number);
+
+        return result;
+    }
+
+    let mul = (...args) => {
+
+        let result = args.reduce((prev, cur, ind) => {
+            return prev * cur
+        }, number);
+
+        return result;
+    }
+
+    return {
+        sum,
+        dif,
+        div,
+        mul
+    }
 }
 
 /* При решении задач, пострайтесь использовать отладчик */
