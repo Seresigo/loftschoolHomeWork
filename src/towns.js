@@ -29,6 +29,7 @@
    homeworkContainer.appendChild(newDiv);
  */
 const homeworkContainer = document.querySelector('#homework-container');
+g
 
 /*
  Функция должна вернуть Promise, который должен быть разрешен с массивом городов в качестве значения
